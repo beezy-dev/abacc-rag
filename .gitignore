@@ -1,0 +1,21 @@
+**/node_modules
+**/dist
+**/.pnp
+**/.pnp.js
+**/coverage
+**/build
+**/.DS_Store
+**/.devcontainer
+**/.vscode
+**/__pycache__
+.ci-operator.yaml
+.eslintrc.yml 
+.stylelintrc.yaml 
+integration-tests/videos
+integration-tests/screenshots
+*.*.backup
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*

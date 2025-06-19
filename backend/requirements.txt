@@ -1,0 +1,10 @@
+flask
+flask-cors
+python-dotenv
+ollama
+chromadb
+langchain-ollama
+langchain
+requests
+gunicorn
+watchdog

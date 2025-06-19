@@ -1,0 +1,22 @@
+Apple's Worldwide Developers Conference (WWDC) 2024, held from June 10-14, was a landmark event that placed Artificial Intelligence at its core, revealing Apple's distinct approach to integrating AI across its ecosystem. The major announcement was Apple Intelligence, a personal intelligence system designed to be deeply integrated into iOS 18, iPadOS 18, and macOS Sequoia, emphasizing privacy and on-device processing.
+
+Apple Intelligence aims to understand and generate language and images, take actions across apps, and draw from users' personal context to simplify everyday tasks. Key features include:
+
+Writing Tools: System-wide capabilities for rewriting, proofreading, and summarizing text, enhancing communication in Mail, Notes, Pages, and third-party apps.
+Genmoji: A fun new feature allowing users to create custom emoji by typing a description, which can then be used as stickers or reactions.
+Image Playground: A new app and system-wide API for generating playful images in various styles (Sketch, Illustration, Animation) based on text descriptions.
+Smarter Siri: A significantly revamped Siri with a more natural voice, improved contextual understanding, and the ability to take actions across apps. Siri can also tap into the on-device intelligence for more personalized and private responses.
+ChatGPT Integration: A partnership with OpenAI brings ChatGPT directly into iOS, iPadOS, and macOS, allowing Siri to tap into ChatGPT's capabilities for broader knowledge when needed, with user permission and privacy in mind.
+Beyond Apple Intelligence, WWDC 2024 also unveiled significant updates to Apple's operating systems:
+
+iOS 18 for iPhone brings unprecedented customization options to the Home Screen, allowing users to arrange apps and widgets anywhere, tint app icons, and activate a Dark Mode for icons. The Photos app received its biggest redesign ever, with a unified view, intelligent organization into collections, and new customization features. Messages gets new text effects, scheduled sending, and support for RCS messaging for improved cross-platform communication. A new Passwords app centralizes and manages all passwords, passkeys, and verification codes.
+
+iPadOS 18 finally introduces a built-in Calculator app to the iPad, complete with "Math Notes," allowing users to write or type mathematical expressions and see them solved instantly with Apple Pencil. The Notes app gets "Smart Script," which refines handwriting to be smoother and more legible while maintaining the user's style, and live audio transcription. Control Center on iPadOS also sees a significant overhaul with more customization.
+
+macOS Sequoia introduces iPhone Mirroring, allowing users to fully access and control their iPhone directly from their Mac, with notifications appearing on the Mac and files easily transferable. Safari gains a "Highlights" feature that uses machine learning to summarize webpages and quickly surface key information like directions or article summaries.
+
+watchOS 11 for Apple Watch focuses on health and fitness, with a new Vitals app that monitors key health metrics and alerts users to unusual patterns. The Training Load feature helps users understand the impact of their workouts. The Smart Stack becomes even smarter, with new widgets and more context-aware suggestions.
+
+Finally, visionOS 2 for Apple Vision Pro introduced new ways to interact with spatial photos, including transforming existing photos into spatial ones, and brought an ultra-wide Mac virtual display for a more expansive computing experience.
+
+Overall, WWDC 2024 marked a pivotal moment for Apple, firmly establishing its vision for AI that prioritizes user privacy, seamless integration, and a focus on genuinely helpful and personalized experiences across all its devices.
