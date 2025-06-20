@@ -94,66 +94,37 @@ ABACC RAG is a small-scale demonstration of content generation based on a user-d
 ### Architecture
 
 ```mermaid
-graph TD
+flowchart LR
     subgraph User Interaction
-        A[User (Suske/Wiske)]
+        A[Users]
     end
 
-    subgraph Frontend (React App)
+    subgraph Frontend
         B[Frontend Web Application]
     end
 
-    subgraph Backend (Python Flask App)
+    subgraph Backend 
         C[Backend API Server]
-        D[ChromaDB (Vector Store)]
     end
 
-    subgraph Ollama (Local Service)
-        E[Ollama Server]
-        F((Nomic-Embed-Text Model))
-        G((Llama2 LLM Model))
+    subgraph Database 
+        D((ChromaDB Vector Store))
     end
 
-    subgraph External APIs
-        H[Google Gemini API]
+    subgraph Ollama
+        F((Embedding Model))
+        G((LLM Model))
     end
 
     subgraph Host System
-        I[/documents Directory on Host/]
+        I[/Documents directories/]
     end
 
-    %% Initial Sideloading Flow (on Backend startup)
-    I -- 1. Reads text files (on startup) --> C
-    C -- 2. Documents (content + simulated xattrs) --> D
-    D -- 3. Request Embeddings --> E
-    E -- 4. Uses Nomic-Embed-Text --> F
-    F -- 5. Embeddings --> D
-    D -- 6. Stores Embeddings & Metadata --> C
-
-    %% Main User Query Flow (Ollama LLM)
-    A -- 7. Enters Query --> B
-    B -- 8. Sends Query to Backend --> C
-    C -- 9. Queries ChromaDB (semantic search + filters) --> D
-    D -- 10. Request Query Embedding --> E
-    E -- 11. Uses Nomic-Embed-Text --> F
-    F -- 12. Query Embeddings --> D
-    D -- 13. Returns Filtered Docs (content + metadata) --> C
-    C -- 14. Sends Filtered Docs to Frontend --> B
-    B -- 15. Sends Query + Filtered Docs (Context) --> E
-    E -- 16. Uses Llama2 LLM --> G
-    G -- 17. Generates LLM Response --> B
-    B -- 18. Displays LLM Response --> A
-
-    %% Gemini Summary Feature Flow
-    A -- 19. Clicks "Summarize Filtered Documents" --> B
-    B -- 20. Sends Filtered Docs (Content for Summary) --> H
-    H -- 21. Returns Summary --> B
-    B -- 22. Displays Gemini Summary --> A
-
-    %% Dependencies/Internal Communication
-    C .-> D: Accesses ChromaDB (persistent data)
-    E .-> F: Ollama manages embedding model
-    E .-> G: Ollama manages LLM model
+    %% Document processing
+    C --> I --> F --> D
+    I --> C
+    %% Prompting
+    A --> B --> C --> G --> A
 ```
 
 In this example, we have the following setup:
