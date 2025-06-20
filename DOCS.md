@@ -1,11 +1,13 @@
 # Documentation
 
+## Concepts
+
 ## Extended attributes
 The construct of additional attributes is to enrich the classic POSIX permissions in two folds:
-- the operation related attributes like adding an attribute to a file to set an append-only, immutable, secure, and undeletable attribute.
+- the operation-based attributes like adding an attribute to a file to set an append-only, immutable, secure, and undeletable attribute.
 - the extended attributes that a user would defined through the 4 existing classes: user, security, system, trusted.
 
-### operation attribute examples
+### operation-based attributes
 Let's put some content into a file:
 ```
 $ echo "this is my document" > document.txt
@@ -81,10 +83,79 @@ user.approved_by="Wiske"
 user.status="Final"
 ```
 
-Exciting? Not really! While the operation attribute are having direct impact on the operational behavior, the extended attributes for the user namespace don't. It will be for the application used them to trigger some policy.
+**Exciting? Not really! While the operation-based attributes have a direct impact only if an application can leverage them. This is what ABACC RAG is about.**
 
-## RAG as an application
-Sitting on TB or PB of data is kind of expensive and useless, unless you can safely empowered the differnet units of an organization with a knowledge search instead of query search in Onedrive or Sharepoint. 
+## ABACC RAG
+Organizations have been pouring millions of files over the years into their storage system in an unstructured way, leading to a so-called data lake but resembling much more a data swamp. As-is, this file real estate is a cost, a security burden, and a lifecycle nightmare with little return on investment. 
+With data classification at scale, these cons can become pros to foster a new wave of creativity and productivity within an organization. Thanks to the AI hype, the usage of the data pipeline has revamped the data management practices to produce “drinkable” data from an organization's data swamp. 
+
+ABACC RAG is a small-scale demonstration of content generation based on a user-defined context with a classification awareness based on attribute-based access control.
+
+### Architecture
+
+```mermaid
+graph TD
+    subgraph User Interaction
+        A[User (Suske/Wiske)]
+    end
+
+    subgraph Frontend (React App)
+        B[Frontend Web Application]
+    end
+
+    subgraph Backend (Python Flask App)
+        C[Backend API Server]
+        D[ChromaDB (Vector Store)]
+    end
+
+    subgraph Ollama (Local Service)
+        E[Ollama Server]
+        F((Nomic-Embed-Text Model))
+        G((Llama2 LLM Model))
+    end
+
+    subgraph External APIs
+        H[Google Gemini API]
+    end
+
+    subgraph Host System
+        I[/documents Directory on Host/]
+    end
+
+    %% Initial Sideloading Flow (on Backend startup)
+    I -- 1. Reads text files (on startup) --> C
+    C -- 2. Documents (content + simulated xattrs) --> D
+    D -- 3. Request Embeddings --> E
+    E -- 4. Uses Nomic-Embed-Text --> F
+    F -- 5. Embeddings --> D
+    D -- 6. Stores Embeddings & Metadata --> C
+
+    %% Main User Query Flow (Ollama LLM)
+    A -- 7. Enters Query --> B
+    B -- 8. Sends Query to Backend --> C
+    C -- 9. Queries ChromaDB (semantic search + filters) --> D
+    D -- 10. Request Query Embedding --> E
+    E -- 11. Uses Nomic-Embed-Text --> F
+    F -- 12. Query Embeddings --> D
+    D -- 13. Returns Filtered Docs (content + metadata) --> C
+    C -- 14. Sends Filtered Docs to Frontend --> B
+    B -- 15. Sends Query + Filtered Docs (Context) --> E
+    E -- 16. Uses Llama2 LLM --> G
+    G -- 17. Generates LLM Response --> B
+    B -- 18. Displays LLM Response --> A
+
+    %% Gemini Summary Feature Flow
+    A -- 19. Clicks "Summarize Filtered Documents" --> B
+    B -- 20. Sends Filtered Docs (Content for Summary) --> H
+    H -- 21. Returns Summary --> B
+    B -- 22. Displays Gemini Summary --> A
+
+    %% Dependencies/Internal Communication
+    C .-> D: Accesses ChromaDB (persistent data)
+    E .-> F: Ollama manages embedding model
+    E .-> G: Ollama manages LLM model
+```
+
 In this example, we have the following setup:
 - ollama to run our models locally 
 - a folder called documents with two files with specific content and attributes
