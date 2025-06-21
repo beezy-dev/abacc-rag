@@ -95,36 +95,38 @@ ABACC RAG is a small-scale demonstration of content generation based on a user-d
 
 ```mermaid
 flowchart LR
-    subgraph User Interaction
-        A[Users]
-    end
+    A[Users]
 
     subgraph Frontend
-        B[Frontend Web Application]
+        B[Web App]
     end
 
-    subgraph Backend 
-        C[Backend API Server]
+    subgraph Backend
+        H["/api/documents"]
+        C[Ingestion]
+        E["/api/search"]
     end
 
     subgraph Database 
-        D((ChromaDB Vector Store))
+        D((vector DB))
     end
 
-    subgraph Ollama
-        F((Embedding Model))
-        G((LLM Model))
+    subgraph LLM runtime
+        F((Embedding))
+        G((LLM Models))
     end
 
     subgraph Host System
-        I[/Documents directories/]
+        I[Document directories]
     end
 
     %% Document processing
-    C --> I --> F --> D
-    I --> C
+    C --> I --> C
+    C --> F --> D
     %% Prompting
-    A --> B --> C --> G --> A
+    A <--> H
+    A --> B --> E <--> D
+    E --> G --> A
 ```
 
 In this example, we have the following setup:
