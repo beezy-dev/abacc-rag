@@ -2,65 +2,14 @@
 
 ## Concepts
 
-## Extended attributes
+## Attributes
 The construct of additional attributes is to enrich the classic POSIX permissions in two folds:
 - the operation-based attributes like adding an attribute to a file to set an append-only, immutable, secure, and undeletable attribute.
 - the extended attributes that a user would defined through the 4 existing classes: user, security, system, trusted.
 
-### operation-based attributes
-Let's put some content into a file:
-```
-$ echo "this is my document" > document.txt
-$ cat document.txt
-this is my document
-```
-if I push some content in with a single ```>```, this will replace the original content
-```
-$ echo "this is your document" > document.txt
-$ cat document.txt
-this is your document
-```
-if I add an operational ```append-only``` to the file 
-```
-$ sudo chattr +a document.txt
-$ lsattr
------a---------------- ./document.txt
-```
-and try the same content replacement it will failed as I can only append new content
-``` 
-$ cat document.txt
-this is your document
-$ echo "this is my document" > document.txt
--bash: document.txt: Operation not permitted
-```
-if I append content, it will then work
-```
-$ echo "this is my document" >> document.txt
-$ cat document.txt
-this is your document
-this is my document
-```
-also, no matter my privilege level, I will not be allowed to replace content or even delete the file
-```
-$ ls -al document.txt
--rw-r--r-- 1 romadams romadams 42 Jun 17 06:31 document.txt
-$ rm -rf document.txt
-rm: cannot remove 'document.txt': Operation not permitted
-$ sudo echo "this is my document" > document.txt
--bash: document.txt: Operation not permitted
-$ sudo rm -rf document.txt
-[sudo] password for romadams:
-rm: cannot remove 'document.txt': Operation not permitted
-```
-then I remove the attribute and I will be able to replace content and delete the file
-```
-$ sudo chattr -a document.txt
-$ lsattr document.txt
----------------------- document.txt
-$ rm -rf document.txt
-```
+This use case is about the extended attributes but the operation-based attributes examples are [available here](ops-attr.md).
 
-### extended attributes
+### Extended attributes
 We will focus on the user namespace, meaning, extended attributes interacting with applications, meaning that without having extended application awareness, these extended attributes are pretty much useless.
 This example has been realized on a Linux operating systems - MacOS is coming with a different CLI command called ```xattr```. 
 
@@ -83,10 +32,12 @@ user.approved_by="Wiske"
 user.status="Final"
 ```
 
-**Exciting? Not really! While the operation-based attributes have a direct impact only if an application can leverage them. This is what ABACC RAG is about.**
+> [!NOTE]
+> Exciting? Not really! While the [operation-based attributes](ops-attr.md) have a direct impact, the extended attributes don't. The impact will be handled at an application-level, like with the ABACC RAG.
 
 ## ABACC RAG
-Organizations have been pouring millions of files over the years into their storage system in an unstructured way, leading to a so-called data lake but resembling much more a data swamp. As-is, this file real estate is a cost, a security burden, and a lifecycle nightmare with little return on investment. 
+Organizations have been pouring millions of files over the years into their storage system in an unstructured way, leading to a so-called data lake but resembling much more a data swamp. As-is, this file real estate is a cost, a security burden, and a lifecycle nightmare with little return on investment.  
+
 With data classification at scale, these cons can become pros to foster a new wave of creativity and productivity within an organization. Thanks to the AI hype, the usage of the data pipeline has revamped the data management practices to produce “drinkable” data from an organization's data swamp. 
 
 ABACC RAG is a small-scale demonstration of content generation based on a user-defined context with a classification awareness based on attribute-based access control.
