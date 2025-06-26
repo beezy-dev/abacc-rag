@@ -65,7 +65,7 @@ flowchart LR
     end
 
     %% Document processing
-    I <-- "Monitoring Changes" --> C --> F --> D
+    I <-- "Monitor Changes" --> C --> F --> D
     %% Admins
     Z <--> H & K
 ```
@@ -76,26 +76,26 @@ flowchart LR
     A[Regular Users]
 
     subgraph Frontends
-        B[Web Chatbot]
-        J[Word Add-in]
+        H[Any]
     end
 
     subgraph Backend
-        E["/api/search"]
-    end
-
-    subgraph Database 
-        D[(vector DB)]
+        D["/api/search"]
     end
 
     subgraph LLM runtime
-        F((Embedding))
-        G((LLM Models))
+        E((Embedding))
+        F((LLM Models))
+    end
+
+    subgraph Database 
+        G[(vector DB)]
     end
 
     %% Prompting
-    A --> B & J --> E <--> D
-    E --> G --> A
+    A -- 1 --> H -- 2 --> D <-- 3 --> E <-- 4 --> G
+    D -- 5 --> H <-- 6 --> F
+    H -- 7 --> A
 ```
 
 In this example, we have the following setup:
