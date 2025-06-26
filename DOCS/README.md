@@ -70,13 +70,10 @@ flowchart LR
     Z <--> H & K
 ```
 
-
+Prompting
 ```mermaid
 flowchart LR
     A[Regular Users]
-    Z[Power Users]
-    I[Document directories]
-
 
     subgraph Frontends
         B[Web Chatbot]
@@ -84,9 +81,6 @@ flowchart LR
     end
 
     subgraph Backend
-        C[[Ingestion]]
-        H@{ shape: docs, label: "/api/documnets"}
-        K@{ shape: bow-rect, label: "/api/content"}
         E["/api/search"]
     end
 
@@ -99,13 +93,6 @@ flowchart LR
         G((LLM Models))
     end
 
-
-
-    %% Document processing
-    C -- "Continuous" --> I -- "Monitoring" --> C
-    C -- "Ingesion" --> F -- "Loop" --> D
-    %% Admins
-    Z <--> H & K
     %% Prompting
     A --> B & J --> E <--> D
     E --> G --> A
