@@ -19,6 +19,6 @@ The components are:
 - a web frontend for a classic off-application chatbot 
 - a Microsoft Word Add-in for in-application chat and insertion 
 
-For more details, you can go through [the documentation](DOCS/DOCS.md)
+For more details, you can go through [the documentation](DOCS/README.md)
 
 
