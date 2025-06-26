@@ -44,6 +44,33 @@ ABACC RAG is a small-scale demonstration of content generation based on a user-d
 
 ### Architecture
 
+#### Ingestion
+```mermaid
+flowchart LR
+    Z[Power Users]
+    I[Document directories]
+
+    subgraph Backend
+        C[[Ingestion]]
+        H@{ shape: docs, label: "/api/documents"}
+        K@{ shape: bow-rect, label: "/api/content/{document}"}
+    end
+
+    subgraph Database 
+        D[(vector DB)]
+    end
+
+    subgraph Model runtime
+        F@{ shape: processes, label: "Embedding Model" }
+    end
+
+    %% Document processing
+    I <-- "Monitoring Changes" --> C --> F --> D
+    %% Admins
+    Z <--> H & K
+```
+
+
 ```mermaid
 flowchart LR
     A[Regular Users]
@@ -59,6 +86,7 @@ flowchart LR
     subgraph Backend
         C[[Ingestion]]
         H@{ shape: docs, label: "/api/documnets"}
+        K@{ shape: bow-rect, label: "/api/content"}
         E["/api/search"]
     end
 
@@ -77,7 +105,7 @@ flowchart LR
     C -- "Continuous" --> I -- "Monitoring" --> C
     C -- "Ingesion" --> F -- "Loop" --> D
     %% Admins
-    Z <--> H
+    Z <--> H & K
     %% Prompting
     A --> B & J --> E <--> D
     E --> G --> A
