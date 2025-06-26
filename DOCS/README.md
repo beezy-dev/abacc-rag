@@ -48,6 +48,8 @@ ABACC RAG is a small-scale demonstration of content generation based on a user-d
 flowchart LR
     A[Regular Users]
     Z[Power Users]
+    I[Document directories]
+
 
     subgraph Frontends
         B[Web Chatbot]
@@ -69,9 +71,7 @@ flowchart LR
         G((LLM Models))
     end
 
-    subgraph Host System
-        I[Document directories]
-    end
+
 
     %% Document processing
     C -- "Continuous" --> I -- "Monitoring" --> C
