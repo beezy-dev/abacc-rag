@@ -192,13 +192,15 @@ The frontend is a simple nodejs+react+tailwind user interface.
 
 The user context influences the retrieval of the documents based on the extended attributes:
 
-1. Suske prompts "when was the conference?", the backend returns zero documents, the LLM has no context and can't provide an answer:
+1. Suske prompts "when was the conference?", the backend returns zero documents, the LLM has no context and can't provide an answer:  
+
 ![image](assets/Screenshot%20From%202025-07-03%2018-47-29.png)
 
 
 1. Wiske prompts for the same question, the backend provides access to the two files, the LLM uses these two files as context to return an answer:
 
 ![image](assets/Screenshot%20From%202025-07-03%2018-41-05.png)
+
 
 
 
