@@ -187,8 +187,18 @@ Successfully processed and stored 5 chunks for 'wiske_document.txt'.
 ```
 
 #### frontend
-The frontend is a simple nodejs+react+tailwind user interface to provide access to the full RAG functionality that would include the context based on the selected user:
+The frontend is a simple nodejs+react+tailwind user interface.
+![image](assets/Screenshot%20From%202025-07-03%2018-49-17.png)
 
-![image](https://github.com/user-attachments/assets/14bcf351-7b42-406e-a3e1-384e43b377f3)
+The user context influences the retrieval of the documents based on the extended attributes:
+
+1. Suske prompts "when was the conference?", the backend returns zero documents, the LLM has no context and can't provide an answer:
+![image](assets/Screenshot%20From%202025-07-03%2018-47-29.png)
+
+
+1. Wiske prompts for the same question, the backend provides access to the two files, the LLM uses these two files as context to return an answer:
+
+![image](assets/Screenshot%20From%202025-07-03%2018-41-05.png)
+
 
 
